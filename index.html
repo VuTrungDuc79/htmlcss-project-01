@@ -140,12 +140,54 @@
                         </li>
                         <li class="show-on-mobile"><a href="#!">Sign up</a></li>
                     </ul>
+                   
 
                     <!-- Action -->
                     <div class="actions">
                         <a href="#!" class="action-link">Sign in</a>
-                        <a href="#!" class="btn action-btn">Sign up</a>
+                        <a href="#!" class="btn action-btn modal-SignUp">Sign up</a>
                     </div>
+                                     <!-- Modal -->
+                                     <div class="modal-overlay" id="signUpModal">
+                                        <div class="modal-container">
+                                        <div class="modal-header">
+                                            Sign Up
+                                            <button class="modal-close" id="closeModal">&times;</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="signUpForm">
+                                            <input type="text" placeholder="Full Name" required>
+                                            <input type="email" placeholder="Email Address" required>
+                                            <input type="password" placeholder="Password" required>
+                                            <input type="password" placeholder="Confirm Password" required>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" form="signUpForm">Register</button>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-overlay" id="signInModal">
+                                        <div class="modal-container">
+                                          <div class="modal-header">
+                                            Sign In
+                                            <button class="modal-close" id="closeSignInModal">&times;</button>
+                                          </div>
+                                          <div class="modal-body">
+                                            <form id="signInForm">
+                                              <input type="email" placeholder="Email Address" required>
+                                              <input type="password" placeholder="Password" required>
+                                            </form>
+                                            <div class="social-login">
+                                              <button class="facebook">Login with Facebook</button>
+                                              <button class="google">Login with Google</button>
+                                            </div>
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button type="submit" form="signInForm">Sign In</button>
+                                          </div>
+                                        </div>
+                                      </div>
                 </nav>
             </div>
         </header>
@@ -190,6 +232,13 @@
                             simple search
                         </p>
                         <a href="#!" class="btn hero-cta">More About Us</a>
+                    </div>
+                    <!-- Container cho video -->
+                    <div class="video-container" id="videoContainer">
+                        <video id="videoPlayer" controls>
+                        <source src="./assets/video/5373-183629075_small.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                        </video>
                     </div>
 
                     <img
@@ -778,6 +827,74 @@
 
             // Copy from PC nav -> Mobile nav
             mobileNav.innerHTML = pcNav.innerHTML;
+
+            document.addEventListener("DOMContentLoaded", function () {
+                const playButton = document.querySelector(".btn.hero-cta");
+                const videoContainer = document.getElementById("videoContainer");
+                const videoPlayer = document.getElementById("videoPlayer");
+
+                playButton.addEventListener("click", function (event) {
+                    event.preventDefault(); // Ngăn chặn hành động mặc định của thẻ <a>
+
+                    // Hiển thị video
+                    videoContainer.classList.add("show");
+                    videoPlayer.style.display = "block";
+                    videoPlayer.play();
+                });
+
+                // Đóng video khi nhấn ra ngoài
+                videoContainer.addEventListener("click", function (event) {
+                    if (event.target === videoContainer) {
+                    videoContainer.classList.remove("show");
+                    videoPlayer.pause();
+                    videoPlayer.style.display = "none";
+                    }
+                });
+    });
+   // Lấy các phần tử cần thiết
+   const signUpLink = document.querySelector('.modal-SignUp');
+    const signUpModal = document.getElementById('signUpModal');
+    const closeModal = document.getElementById('closeModal');
+
+    // Hiển thị modal khi nhấn "Sign up"
+    signUpLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      signUpModal.classList.add('show');
+    });
+
+    // Đóng modal khi nhấn nút "×"
+    closeModal.addEventListener('click', () => {
+      signUpModal.classList.remove('show');
+    });
+
+    // Đóng modal khi nhấp ra ngoài
+    signUpModal.addEventListener('click', (e) => {
+      if (e.target === signUpModal) {
+        signUpModal.classList.remove('show');
+      }
+    });
+    const signInLink = document.querySelector('.action-link');
+    const signInModal = document.getElementById('signInModal');
+    const closeSignInModal = document.getElementById('closeSignInModal');
+
+    // Hiển thị modal khi nhấn "Sign in"
+    signInLink.addEventListener('click', function (e) {
+      e.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ <a>
+      signInModal.classList.add('show'); // Thêm class để hiển thị modal
+    });
+
+    // Đóng modal khi nhấn nút "×"
+    closeSignInModal.addEventListener('click', function () {
+      signInModal.classList.remove('show'); // Gỡ class để ẩn modal
+    });
+
+    // Đóng modal khi nhấp ra ngoài
+    signInModal.addEventListener('click', function (e) {
+      if (e.target === signInModal) {
+        signInModal.classList.remove('show');
+      }
+    });
+    
         </script>
     </body>
 </html>
